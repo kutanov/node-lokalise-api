@@ -1,5 +1,6 @@
 import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
+import { PaginatedResult } from '../interfaces/paginated_result';
 export declare class BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;
@@ -20,8 +21,8 @@ export declare class BaseCollection {
     populatePaginationDataFor(headers: any): void;
     protected populateObjectFromJsonRoot(json: any, headers: any): this;
     protected populateSecondaryObjectFromJsonRoot(json: any, headers: any): this;
-    protected populateObjectFromJson(json: Object, headers: any, secondary?: boolean): this;
-    protected populateArrayFromJson(json: Array<any>, headers: any): any;
+    protected populateObjectFromJson(json: Object, _headers: any, secondary?: boolean): this;
+    protected populateArrayFromJson(json: Array<any>, headers: any): PaginatedResult;
     protected populateApiErrorFromJson(json: Object): ApiError;
     protected returnBareJSON(json: any): any;
     protected handleReject(data: any): ApiError;

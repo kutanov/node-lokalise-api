@@ -50,8 +50,7 @@ class BaseCollection {
         }
         return this.populateObjectFromJson(json, headers, true);
     }
-    populateObjectFromJson(json, headers, secondary = false) {
-        console.log(headers);
+    populateObjectFromJson(json, _headers, secondary = false) {
         const childClass = this.constructor;
         if (secondary) {
             return new childClass.secondaryElementClass(json);
@@ -61,18 +60,19 @@ class BaseCollection {
         }
     }
     populateArrayFromJson(json, headers) {
-        var result = {};
-        result['totalResults'] = parseInt(headers["x-pagination-total-count"]);
-        result['totalPages'] = parseInt(headers["x-pagination-page-count"]);
-        result['resultsPerPage'] = parseInt(headers["x-pagination-limit"]);
-        result['currentPage'] = parseInt(headers["x-pagination-page"]);
         const childClass = this.constructor;
         const arr = [];
         const jsonArray = json[childClass.rootElementName];
         for (const obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj, headers));
         }
-        result['items'] = arr;
+        var result = {
+            totalResults: parseInt(headers["x-pagination-total-count"]),
+            totalPages: parseInt(headers["x-pagination-page-count"]),
+            resultsPerPage: parseInt(headers["x-pagination-limit"]),
+            currentPage: parseInt(headers["x-pagination-page"]),
+            items: arr
+        };
         return result;
     }
     populateApiErrorFromJson(json) {

@@ -102,7 +102,7 @@ export class BaseCollection {
 
   protected populateObjectFromJson(
     json: Object,
-    headers: any,
+    _headers: any,
     secondary: boolean = false
   ): this {
     const childClass = <typeof BaseCollection>this.constructor;
