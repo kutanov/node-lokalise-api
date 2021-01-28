@@ -20,7 +20,7 @@ describe("UserGroups", function () {
         limit: 1,
       });
 
-      expect(user_groups[0].group_id).to.eq(group_id);
+      expect(user_groups.items[0].group_id).to.eq(group_id);
     })
     .register(this);
 

@@ -18,7 +18,7 @@ describe("Snapshots", function () {
         limit: 1,
       });
 
-      expect(snapshots[0].snapshot_id).to.eq(snapshot_id);
+      expect(snapshots.items[0].snapshot_id).to.eq(snapshot_id);
     })
     .register(this);
 

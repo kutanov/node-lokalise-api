@@ -13,7 +13,7 @@ describe("TranslationProviders", function () {
       const providers = await lokaliseApi.translationProviders.list({
         team_id: team_id,
       });
-      expect(providers[0].name).to.eq("Gengo");
+      expect(providers.items[0].name).to.eq("Gengo");
     })
     .register(this);
 
@@ -24,7 +24,7 @@ describe("TranslationProviders", function () {
         page: 2,
         limit: 1,
       });
-      expect(providers[0].name).to.eq("Lokalise");
+      expect(providers.items[0].name).to.eq("Lokalise");
     })
     .register(this);
 

@@ -35,22 +35,23 @@ class BaseCollection {
         this.currentPage = parseInt(headers["x-pagination-page"]);
         return;
     }
-    populateObjectFromJsonRoot(json) {
+    populateObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
         if (childClass.rootElementNameSingular != null) {
             json = json[childClass.rootElementNameSingular];
         }
-        return this.populateObjectFromJson(json);
+        return this.populateObjectFromJson(json, headers);
     }
-    populateSecondaryObjectFromJsonRoot(json) {
+    populateSecondaryObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
         /* istanbul ignore next */
         if (childClass.secondaryElementNameSingular != null) {
             json = json[childClass.secondaryElementNameSingular];
         }
-        return this.populateObjectFromJson(json, true);
+        return this.populateObjectFromJson(json, headers, true);
     }
-    populateObjectFromJson(json, secondary = false) {
+    populateObjectFromJson(json, headers, secondary = false) {
+        console.log(headers);
         const childClass = this.constructor;
         if (secondary) {
             return new childClass.secondaryElementClass(json);
@@ -59,14 +60,20 @@ class BaseCollection {
             return new childClass.elementClass(json);
         }
     }
-    populateArrayFromJson(json) {
+    populateArrayFromJson(json, headers) {
+        var result = {};
+        result['totalResults'] = parseInt(headers["x-pagination-total-count"]);
+        result['totalPages'] = parseInt(headers["x-pagination-page-count"]);
+        result['resultsPerPage'] = parseInt(headers["x-pagination-limit"]);
+        result['currentPage'] = parseInt(headers["x-pagination-page"]);
         const childClass = this.constructor;
         const arr = [];
         const jsonArray = json[childClass.rootElementName];
         for (const obj of jsonArray) {
-            arr.push(this.populateObjectFromJson(obj));
+            arr.push(this.populateObjectFromJson(obj, headers));
         }
-        return arr;
+        result['items'] = arr;
+        return result;
     }
     populateApiErrorFromJson(json) {
         return json;
@@ -90,7 +97,7 @@ class BaseCollection {
                 const headers = result["headers"];
                 this.populatePaginationDataFor(headers);
                 const json = result["body"];
-                resolve(resolveFn.call(this, json));
+                resolve(resolveFn.call(this, json, headers));
             })
                 .catch((data) => {
                 reject(rejectFn.call(this, data));

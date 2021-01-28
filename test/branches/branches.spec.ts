@@ -32,7 +32,7 @@ describe("Branches", function () {
         project_id: project_id,
       });
 
-      expect(branches[0].branch_id).to.eq(branch_id);
+      expect(branches.items[0].branch_id).to.eq(branch_id);
     })
     .register(this);
 

@@ -16,7 +16,7 @@ describe("Contributors", function () {
         project_id: project_id,
       });
 
-      expect(contributors[0].user_id).to.eq(user_id);
+      expect(contributors.items[0].user_id).to.eq(user_id);
     })
     .register(this);
 
@@ -28,7 +28,7 @@ describe("Contributors", function () {
         limit: 3,
       });
 
-      expect(contributors[0].user_id).to.eq(33599);
+      expect(contributors.items[0].user_id).to.eq(33599);
     })
     .register(this);
 
@@ -74,8 +74,8 @@ describe("Contributors", function () {
         { project_id: project_id }
       );
 
-      expect(contributors[0].email).to.eq("translator2@mycompany.com");
-      expect(contributors[0].user_id).to.eq(new_user_id);
+      expect(contributors.items[0].email).to.eq("translator2@mycompany.com");
+      expect(contributors.items[0].user_id).to.eq(new_user_id);
     })
     .register(this);
 

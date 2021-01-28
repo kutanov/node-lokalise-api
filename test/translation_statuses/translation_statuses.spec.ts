@@ -14,7 +14,7 @@ describe("TranslationStatuses", function () {
       const statuses = await lokaliseApi.translationStatuses.list({
         project_id: project_id,
       });
-      expect(statuses[0].title).to.eq("random");
+      expect(statuses.items[0].title).to.eq("random");
     })
     .register(this);
 
@@ -25,7 +25,7 @@ describe("TranslationStatuses", function () {
         page: 2,
         limit: 1,
       });
-      expect(statuses[0].title).to.eq("tested");
+      expect(statuses.items[0].title).to.eq("tested");
     })
     .register(this);
 

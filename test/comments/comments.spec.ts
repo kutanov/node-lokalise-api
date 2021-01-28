@@ -16,7 +16,7 @@ describe("Comments", function () {
         project_id: project_id,
       });
 
-      expect(comments[0].comment_id).to.eq(comment_id);
+      expect(comments.items[0].comment_id).to.eq(comment_id);
     })
     .register(this);
 
@@ -27,8 +27,8 @@ describe("Comments", function () {
         key_id: key_id,
       });
 
-      expect(comments[0].comment_id).to.eq(comment_id);
-      expect(comments[0].key_id).to.eq(key_id);
+      expect(comments.items[0].comment_id).to.eq(comment_id);
+      expect(comments.items[0].key_id).to.eq(key_id);
     })
     .register(this);
 
@@ -61,7 +61,7 @@ describe("Comments", function () {
         { project_id: project_id, key_id: key_id }
       );
 
-      expect(comments[0].comment).to.eq("Project comment 1");
+      expect(comments.items[0].comment).to.eq("Project comment 1");
     })
     .register(this);
 

@@ -15,8 +15,8 @@ describe("QueuedProcesses", function () {
         project_id: project_id,
       });
 
-      expect(processes.length).to.eq(9);
-      expect(processes[0].process_id).to.eq(
+      expect(processes.items.length).to.eq(9);
+      expect(processes.items[0].process_id).to.eq(
         "3b943469e6b3e324b5bdad639b122a623e6e7a1a"
       );
     })

@@ -21,8 +21,8 @@ describe("Screenshots", function () {
         limit: 1,
       });
 
-      expect(screenshots[0].screenshot_id).to.eq(screenshot_id);
-      expect(screenshots[0].key_ids).to.include(key_id);
+      expect(screenshots.items[0].screenshot_id).to.eq(screenshot_id);
+      expect(screenshots.items[0].key_ids).to.include(key_id);
     })
     .register(this);
 
@@ -58,8 +58,8 @@ describe("Screenshots", function () {
         { project_id: project_id }
       );
 
-      expect(screenshots[0].screenshot_id).to.eq(second_screenshot_id);
-      expect(screenshots[0].key_ids).to.include(key_id);
+      expect(screenshots.items[0].screenshot_id).to.eq(second_screenshot_id);
+      expect(screenshots.items[0].key_ids).to.include(key_id);
     })
     .register(this);
 

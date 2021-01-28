@@ -82,25 +82,26 @@ export class BaseCollection {
     return;
   }
 
-  protected populateObjectFromJsonRoot(json: any): this {
+  protected populateObjectFromJsonRoot(json: any, headers: any): this {
     const childClass = <typeof BaseCollection>this.constructor;
     if (childClass.rootElementNameSingular != null) {
       json = json[childClass.rootElementNameSingular];
     }
-    return this.populateObjectFromJson(json);
+    return this.populateObjectFromJson(json, headers);
   }
 
-  protected populateSecondaryObjectFromJsonRoot(json: any): this {
+  protected populateSecondaryObjectFromJsonRoot(json: any, headers: any): this {
     const childClass = <typeof BaseCollection>this.constructor;
     /* istanbul ignore next */
     if (childClass.secondaryElementNameSingular != null) {
       json = json[childClass.secondaryElementNameSingular];
     }
-    return this.populateObjectFromJson(json, true);
+    return this.populateObjectFromJson(json, headers, true);
   }
 
   protected populateObjectFromJson(
     json: Object,
+    headers: any,
     secondary: boolean = false
   ): this {
     const childClass = <typeof BaseCollection>this.constructor;
@@ -111,14 +112,21 @@ export class BaseCollection {
     }
   }
 
-  protected populateArrayFromJson(json: Array<any>): this[] {
+  protected populateArrayFromJson(json: Array<any>, headers: any): any {
+    var result:any = {};
+    result['totalResults'] = parseInt(headers["x-pagination-total-count"]);
+    result['totalPages'] = parseInt(headers["x-pagination-page-count"]);
+    result['resultsPerPage'] = parseInt(headers["x-pagination-limit"]);
+    result['currentPage'] = parseInt(headers["x-pagination-page"]);
+
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
     const jsonArray = json[(<any>childClass).rootElementName];
     for (const obj of jsonArray) {
-      arr.push(this.populateObjectFromJson(obj));
+      arr.push(this.populateObjectFromJson(obj, headers));
     }
-    return arr;
+    result['items'] = arr;
+    return result;
   }
 
   protected populateApiErrorFromJson(json: Object): ApiError {
@@ -153,7 +161,7 @@ export class BaseCollection {
           const headers = result["headers"];
           this.populatePaginationDataFor(headers);
           const json = result["body"];
-          resolve(resolveFn.call(this, json));
+          resolve(resolveFn.call(this, json, headers));
         })
         .catch((data) => {
           reject(rejectFn.call(this, data));

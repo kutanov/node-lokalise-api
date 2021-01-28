@@ -12,7 +12,7 @@ describe("Files", function () {
   cassette
     .createTest("list", async () => {
       const files = await lokaliseApi.files.list({ project_id: project_id });
-      const file = files[0];
+      const file = files.items[0];
 
       expect(file.filename).to.eq("%LANG_ISO%.yml");
       expect(file.key_count).to.eq(3);

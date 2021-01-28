@@ -13,7 +13,7 @@ describe("TeamUsers", function () {
     .createTest("list", async () => {
       const team_users = await lokaliseApi.teamUsers.list({ team_id: team_id });
 
-      expect(team_users[0].user_id).to.eq(user_id);
+      expect(team_users.items[0].user_id).to.eq(user_id);
     })
     .register(this);
 
@@ -25,7 +25,7 @@ describe("TeamUsers", function () {
         limit: 1,
       });
 
-      expect(team_users[0].user_id).to.eq(35554);
+      expect(team_users.items[0].user_id).to.eq(35554);
     })
     .register(this);
 

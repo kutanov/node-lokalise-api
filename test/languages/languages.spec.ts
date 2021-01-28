@@ -16,8 +16,8 @@ describe("Languages", function () {
         project_id: project_id,
       });
 
-      expect(languages[0].lang_id).to.eq(803);
-      expect(languages[0].lang_name).to.eq("Albanian");
+      expect(languages.items[0].lang_id).to.eq(803);
+      expect(languages.items[0].lang_name).to.eq("Albanian");
     })
     .register(this);
 
@@ -29,8 +29,8 @@ describe("Languages", function () {
         limit: 4,
       });
 
-      expect(languages[0].lang_id).to.eq(lang_id);
-      expect(languages[0].lang_name).to.eq("Chinese Traditional");
+      expect(languages.items[0].lang_id).to.eq(lang_id);
+      expect(languages.items[0].lang_name).to.eq("Chinese Traditional");
     })
     .register(this);
 
@@ -41,8 +41,8 @@ describe("Languages", function () {
         limit: 2,
       });
 
-      expect(languages[0].lang_id).to.eq(792);
-      expect(languages[0].lang_name).to.eq("Afrikaans (South Africa)");
+      expect(languages.items[0].lang_id).to.eq(792);
+      expect(languages.items[0].lang_name).to.eq("Afrikaans (South Africa)");
     })
     .register(this);
 
@@ -71,8 +71,8 @@ describe("Languages", function () {
         { project_id: project_id }
       );
 
-      expect(languages[0].lang_id).to.eq(second_lang_id);
-      expect(languages[0].lang_name).to.eq("Akan");
+      expect(languages.items[0].lang_id).to.eq(second_lang_id);
+      expect(languages.items[0].lang_name).to.eq("Akan");
     })
     .register(this);
 

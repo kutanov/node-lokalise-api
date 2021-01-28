@@ -18,10 +18,10 @@ export declare class BaseCollection {
     update(id: any, body: any, params?: StandartParams): Promise<any>;
     delete(id: any, params?: StandartParams): Promise<any>;
     populatePaginationDataFor(headers: any): void;
-    protected populateObjectFromJsonRoot(json: any): this;
-    protected populateSecondaryObjectFromJsonRoot(json: any): this;
-    protected populateObjectFromJson(json: Object, secondary?: boolean): this;
-    protected populateArrayFromJson(json: Array<any>): this[];
+    protected populateObjectFromJsonRoot(json: any, headers: any): this;
+    protected populateSecondaryObjectFromJsonRoot(json: any, headers: any): this;
+    protected populateObjectFromJson(json: Object, headers: any, secondary?: boolean): this;
+    protected populateArrayFromJson(json: Array<any>, headers: any): any;
     protected populateApiErrorFromJson(json: Object): ApiError;
     protected returnBareJSON(json: any): any;
     protected handleReject(data: any): ApiError;
