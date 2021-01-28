@@ -1,6 +1,7 @@
 import { ApiRequest } from "../http_client/base";
 import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
+import { PaginatedResult } from '../interfaces/paginated_result';
 
 export class BaseCollection {
   protected static rootElementName: string = "";
@@ -112,20 +113,20 @@ export class BaseCollection {
     }
   }
 
-  protected populateArrayFromJson(json: Array<any>, headers: any): any {
-    var result:any = {};
-    result['totalResults'] = parseInt(headers["x-pagination-total-count"]);
-    result['totalPages'] = parseInt(headers["x-pagination-page-count"]);
-    result['resultsPerPage'] = parseInt(headers["x-pagination-limit"]);
-    result['currentPage'] = parseInt(headers["x-pagination-page"]);
-
+  protected populateArrayFromJson(json: Array<any>, headers: any): PaginatedResult {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
     const jsonArray = json[(<any>childClass).rootElementName];
     for (const obj of jsonArray) {
       arr.push(this.populateObjectFromJson(obj, headers));
     }
-    result['items'] = arr;
+    var result:PaginatedResult = {
+      totalResults: parseInt(headers["x-pagination-total-count"]),
+      totalPages:  parseInt(headers["x-pagination-page-count"]),
+      resultsPerPage:  parseInt(headers["x-pagination-limit"]),
+      currentPage:  parseInt(headers["x-pagination-page"]),
+      items: arr
+     }
     return result;
   }
 
